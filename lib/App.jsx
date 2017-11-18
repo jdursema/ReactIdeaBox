@@ -11,7 +11,7 @@ export default class App extends Component {
     this.state = {
       ideas: JSON.parse(localStorage.getItem('ideaCards'))
 
-    }
+    };
   }
 
   createNewIdea(obj) {
@@ -40,7 +40,18 @@ export default class App extends Component {
     }
     this.setState({ideas: ideasArray});
     localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
+  }
 
+  decreaseRank(number) {
+    let ideasArray = this.state.ideas;
+
+    if (ideasArray[number].rank === 'genius') {
+      ideasArray[number].rank = 'plausible';
+    } else if (ideasArray[number].rank === 'plausible') {
+      ideasArray[number].rank = 'swill';
+    }
+    this.setState({ideas: ideasArray});
+    localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
   }
 
 
@@ -55,7 +66,8 @@ export default class App extends Component {
           number={index}
           idea={idea} 
           deleteIdea={this.deleteIdea.bind(this)}
-          changeRank={this.increaseRank.bind(this)}/>)} 
+          increaseRank={this.increaseRank.bind(this)}
+          decreaseRank= {this.decreaseRank.bind(this)}/>)} 
       </div>
      </div>
    );
