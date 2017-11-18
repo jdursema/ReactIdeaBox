@@ -1,30 +1,45 @@
 import React, {Component} from 'react';
 import Search from './Search';
 import Input from './Input';
-import CardList from './CardList';
+import Card from './Card';
+import './styles/App.css'
 
-export default class App extends Component{
-  constructor(){
+export default class App extends Component {
+  constructor() {
     super();
 
     this.state = {
-      ideas: []
+      ideas: JSON.parse(localStorage.getItem('ideaCards'))
 
     }
   }
 
-  createNewIdea(obj){
-    this.state.ideas.push(obj)
-    console.log(this.state.ideas)
+  createNewIdea(obj) {
+    let ideasArray = this.state.ideas;
+
+    ideasArray.push(obj);
+    this.setState({ideas: ideasArray});
+    localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
   }
 
-  render(){
+  deleteIdea(number){
+    let ideasArray = this.state.ideas;
+
+    ideasArray.splice(number, 1);
+    this.setState({ideas: ideasArray});
+    localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
+  }
+
+
+  render() {
    return (
      <div>
        <Input newIdea = {this.createNewIdea.bind(this)}/>
        <Search />
-       <CardList ideaCards = {this.state.ideas}/>
+       <div className='cards'>
+   { this.state.ideas.map((idea, index) => <Card key={index} number={index} idea={idea} deleteIdea={this.deleteIdea.bind(this)}/>)} 
+      </div>
      </div>
-   )
+   );
   }
 }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './styles/input.css';
 
 export default class Input extends Component {
   constructor(props) {
@@ -24,11 +25,12 @@ export default class Input extends Component {
       
   render() {
     return (
-      <div>
-        <h1>IdeaBox</h1>
+      <div className="input-div">
+        <h1>Idea<span>Box</span></h1>
           <input type= 'text' placeholder= 'title' onChange= {this.saveCardTitle}/>
           <input type= 'text' placeholder= 'body' onChange= {this.saveCardBody} />
-          <button onClick= {() => {
+          <button 
+          className= "save" onClick= {() => {
             console.log('clicked');
             this.props.newIdea(this.state);
             }}>
