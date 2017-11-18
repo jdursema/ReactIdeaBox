@@ -17,7 +17,7 @@ export default class App extends Component {
   createNewIdea(obj) {
     let ideasArray = this.state.ideas;
 
-    ideasArray.push(obj);
+    ideasArray.unshift(obj);
     this.setState({ideas: ideasArray});
     localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
   }
@@ -37,7 +37,11 @@ export default class App extends Component {
        <Input newIdea = {this.createNewIdea.bind(this)}/>
        <Search />
        <div className='cards'>
-   { this.state.ideas.map((idea, index) => <Card key={index} number={index} idea={idea} deleteIdea={this.deleteIdea.bind(this)}/>)} 
+   { this.state.ideas.map((idea, index) => 
+    <Card key={index} 
+          number={index}
+          idea={idea} 
+          deleteIdea={this.deleteIdea.bind(this)}/>)} 
       </div>
      </div>
    );
