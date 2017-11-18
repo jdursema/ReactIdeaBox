@@ -22,12 +22,25 @@ export default class App extends Component {
     localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
   }
 
-  deleteIdea(number){
+  deleteIdea(number) {
     let ideasArray = this.state.ideas;
 
     ideasArray.splice(number, 1);
     this.setState({ideas: ideasArray});
     localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
+  }
+
+  increaseRank(number) {
+    let ideasArray = this.state.ideas;
+
+    if (ideasArray[number].rank === 'swill') {
+      ideasArray[number].rank = 'plausible';
+    } else if (ideasArray[number].rank === 'plausible') {
+      ideasArray[number].rank = 'genius';
+    }
+    this.setState({ideas: ideasArray});
+    localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
+
   }
 
 
@@ -41,7 +54,8 @@ export default class App extends Component {
     <Card key={index} 
           number={index}
           idea={idea} 
-          deleteIdea={this.deleteIdea.bind(this)}/>)} 
+          deleteIdea={this.deleteIdea.bind(this)}
+          changeRank={this.increaseRank.bind(this)}/>)} 
       </div>
      </div>
    );
