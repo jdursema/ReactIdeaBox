@@ -6,19 +6,20 @@ export default class Input extends Component {
     super();
     this.state = {
       title: '',
-      body: ''
+      body: '',
+      rank: 'swill'
     };
 
-    this.saveCardBody= this.saveCardBody.bind(this)
-    this.saveCardTitle= this.saveCardTitle.bind(this)
+    this.saveCardBody= this.saveCardBody.bind(this);
+    this.saveCardTitle= this.saveCardTitle.bind(this);
   }
 
-  saveCardTitle(event){
-    this.setState({ title: event.target.value})
+  saveCardTitle(event) {
+    this.setState({ title: event.target.value});
   }
 
-  saveCardBody(event){
-    this.setState({ body: event.target.value})
+  saveCardBody(event) {
+    this.setState({ body: event.target.value});
   }
 
  
@@ -27,12 +28,12 @@ export default class Input extends Component {
     return (
       <div className="input-div">
         <h1>Idea<span>Box</span></h1>
-          <input type= 'text' placeholder= 'title' onChange= {this.saveCardTitle}/>
-          <input type= 'text' placeholder= 'body' onChange= {this.saveCardBody} />
+          <input type= 'text' placeholder= 'title' value= {this.state.title} onChange= {this.saveCardTitle}/>
+          <input type= 'text' placeholder= 'body' value= {this.state.body} onChange= {this.saveCardBody} />
           <button 
-          className= "save" onClick= {() => {
-            console.log('clicked');
-            this.props.newIdea(this.state);
+            className= "save" onClick= {() => {
+              this.props.newIdea(this.state);
+              this.setState({title: '', body: ''});
             }}>
             Save
           </button>
