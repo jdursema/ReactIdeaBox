@@ -38,6 +38,6 @@ export default class Input extends Component {
             Save
           </button>
       </div>
-  )
-}
+    );
+  }
 }

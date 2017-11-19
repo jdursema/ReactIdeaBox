@@ -6,7 +6,6 @@ export default class Card extends Component {
     super();
 
     this.state = {
-      rank: ['swill', 'plausible', 'genius']
     };
   }
 

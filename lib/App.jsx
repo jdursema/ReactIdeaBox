@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Search from './Search';
 import Input from './Input';
 import Card from './Card';
-import './styles/App.css'
+import './styles/App.css';
 
 export default class App extends Component {
   constructor() {
@@ -54,12 +54,21 @@ export default class App extends Component {
     localStorage.setItem('ideaCards', JSON.stringify(ideasArray));
   }
 
+  searchFunction(string) {
+    let ideasArray = JSON.parse(localStorage.getItem('ideaCards'))
+
+    let filteredArray= ideasArray.filter((idea)=>{
+      return idea.title.includes(string)
+    })
+    this.setState({ideas: filteredArray}) 
+  }
+
 
   render() {
    return (
-     <div>
+     <div className='everything'>
        <Input newIdea = {this.createNewIdea.bind(this)}/>
-       <Search />
+       <Search searchFunction = {this.searchFunction.bind(this)} />
        <div className='cards'>
    { this.state.ideas.map((idea, index) => 
     <Card key={index} 
